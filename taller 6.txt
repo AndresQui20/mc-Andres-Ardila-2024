@@ -1,0 +1,38 @@
+import math
+
+def calcular_coseno_taylor(x, epsilon_s):
+   
+    termino = 1
+    coseno_estimado = 1
+    iteracion = 0
+    
+    while True:
+       
+        iteracion += 1
+        termino *= -x**2 / ((2 * iteracion - 1) * (2 * iteracion))
+        
+        coseno_estimado += termino
+        
+        if iteracion > 1:  
+            error_absoluto = abs(termino)
+            error_relativo_percentual = (error_absoluto / abs(coseno_estimado)) * 100
+            
+            if error_relativo_percentual < epsilon_s:
+                break
+    
+    return coseno_estimado, error_relativo_percentual, iteracion
+
+def main():
+    
+    x = float(input("Introduce el valor en radianes: "))
+    
+    epsilon_s = 1e-8
+  
+    coseno_estimado, error_relativo_percentual, iteraciones = calcular_coseno_taylor(x, epsilon_s)
+    
+    print(f"Valor estimado del coseno: {coseno_estimado:.8f}")
+    print(f"Error aproximado relativo porcentual: {error_relativo_percentual:.8f}%")
+    print(f"Número de iteraciones realizadas: {iteraciones}")
+
+if __name__ == "__main__":
+    main()
