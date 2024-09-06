@@ -1,0 +1,20 @@
+import math
+
+def taylor_series_exponential_minus(x, tol=1e-8):
+    term = 1  # 
+    sum = term
+    n = 1
+    while abs(term) > tol:
+        term *= -x / n
+        sum += term
+        n += 1
+    return sum, abs(term / sum) * 100, n
+
+
+x = 0.55
+
+value, error, iterations = taylor_series_exponential_minus(x)
+
+print(f"Valor aproximado de e^(-{x}): {value:.8f}")
+print(f"Error relativo porcentual: {error:.8f}%")
+print(f"Número de iteraciones: {iterations}")
